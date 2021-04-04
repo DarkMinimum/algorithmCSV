@@ -2,12 +2,19 @@ package com.sytoss.algorithm.csv;
 
 import org.testng.annotations.Test;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import static org.testng.Assert.*;
 
 public class LineTest {
+
+    private final static String PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\test.csv";
+    private final static String LIST_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.csv";
 
     @Test
     public static void newLine() {
@@ -45,7 +52,7 @@ public class LineTest {
 
     @Test
     public static void compareNonValidInformation() throws FileNotFoundException {
-        FileContent content = new FileContent("D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\test.csv");
+        FileContent content = new FileContent(PATH);
         String[][] example = new String[][]{{"da", "da", "net"}, {"not", "yep", "da"}};
 
         for (int i = 0; i < content.getLines().size(); i++) {
@@ -61,7 +68,7 @@ public class LineTest {
 
     @Test
     public static void compareValidInformation() throws FileNotFoundException {
-        List<PersonLine> list = Parser.parse(new FileContent("D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.csv"));
+        List<PersonLine> list = Parser.parse(new FileContent(LIST_PATH));
         String[][] expected = new String[][] {{"1","Jenya", "Vasiliev", "22.03.1995", "Our \"mentor\"."}};
 
         for (int i = 0; i < 1; i++) {
@@ -74,4 +81,6 @@ public class LineTest {
         }
 
     }
+
+
 }

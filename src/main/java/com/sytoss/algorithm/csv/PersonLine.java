@@ -1,5 +1,11 @@
 package com.sytoss.algorithm.csv;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class PersonLine extends Line {
 
     public PersonLine(String line) {
@@ -43,19 +49,29 @@ public class PersonLine extends Line {
     }
 
     public String getNumber() {
-        return super.getCells().get(0);
+        return getCells().get(0);
     }
     public String getName() {
-        return super.getCells().get(1);
+        return getCells().get(1);
     }
     public String getSurname() {
-        return super.getCells().get(2);
+        return getCells().get(2);
     }
-    public String getDate() {
-        return super.getCells().get(3);
+
+    public String getDateXML() throws ParseException {
+        SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date.parse(getCells().get(3)));
+        return cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1) +"-"+cal.get(Calendar.DAY_OF_MONTH);
     }
+
+    public Date getDate() throws ParseException {
+        return new SimpleDateFormat("dd.MM.yyyy").parse(getCells().get(3));
+    }
+
+
     public String getNote() {
-        return super.getCells().get(4);
+        return getCells().get(4);
     }
 
 
