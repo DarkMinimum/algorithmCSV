@@ -1,2 +1,2 @@
 # algorithmCSV
-Second generation of the CSV parser. 31.03.2021
+Second generation of parser from the CSV to xml. 31.03.2021
