@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 public class FileContent {
-    private List<PersonLine> lines  = new ArrayList<>();
+    private List<Line> lines  = new ArrayList<>();
 
     public FileContent(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
@@ -31,7 +31,7 @@ public class FileContent {
     }
 
 
-    public List<PersonLine> getLines() {
+    public List<Line> getLines() {
         return Collections.unmodifiableList(lines);
     }
 }

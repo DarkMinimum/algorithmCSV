@@ -1,22 +1,22 @@
 package com.sytoss.algorithm.csv;
 
+import org.junit.Test;
 
-import org.testng.annotations.Test;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import static org.testng.Assert.*;
 
+import static org.junit.Assert.assertEquals;
 
 public class LineTest {
 
     private final static String PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\test.csv";
     private final static String LIST_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.csv";
-    private final static String XML_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
+    //private final static String XML_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
 
     @Test
-    public static void newLine() {
+    public void newLine() {
         String str = "1,Dani,Grechishkin,8";
 
         Line line = new Line(str);
@@ -27,7 +27,7 @@ public class LineTest {
     }
 
     @Test
-    public static void personLine() {
+    public void personLine() {
         String person = "1,Jenya,Vasiliev,\"22.03.1995\",\"Our \"\"mentor\"\".\"";
         PersonLine line = new PersonLine(person);
 
@@ -50,7 +50,7 @@ public class LineTest {
     }
 
     @Test
-    public static void compareNonValidInformation() throws FileNotFoundException {
+    public void compareNonValidInformation() throws FileNotFoundException {
         FileContent content = new FileContent(PATH);
         String[][] example = new String[][]{{"da", "da", "net"}, {"not", "yep", "da"}};
 
@@ -66,8 +66,8 @@ public class LineTest {
     }
 
     @Test
-    public static void compareValidInformation() throws FileNotFoundException {
-        List<PersonLine> list = Parser.parse(new FileContent(LIST_PATH));
+    public void compareValidInformation() throws FileNotFoundException {
+        List<Line> list = Parser.parse(new FileContent(LIST_PATH));
         String[][] expected = new String[][] {{"1","Jenya", "Vasiliev", "22.03.1995", "Our \"mentor\"."}};
 
         for (int i = 0; i < 1; i++) {

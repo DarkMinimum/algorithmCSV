@@ -15,7 +15,7 @@ public class Parser {
     private final static String LIST_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.csv";
     private final static String OUTPUT_XML = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
 
-    public static List<PersonLine> parse(FileContent fc) {
+    public static List<Line> parse(FileContent fc) {
 
         return fc.getLines();
     }
@@ -23,7 +23,10 @@ public class Parser {
     public Parser(FileContent fc, String xmlPath) throws ParseException {
         Document doc = new Document();
         doc.setRootElement(new Element("Persons"));
-        for (PersonLine l : fc.getLines()) {
+        for (Line line : fc.getLines()) {
+
+            PersonLine l = (PersonLine)line;
+
             Element person = new Element("Person");
             person.setAttribute("id", l.getNumber());
             person.addContent((new Element("name").setText(l.getName())));
@@ -48,7 +51,7 @@ public class Parser {
     public static void main(String[] args) {
 
         try {
-            Parser parser = new Parser(new FileContent(LIST_PATH), OUTPUT_XML);
+            new Parser(new FileContent(LIST_PATH), OUTPUT_XML);
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
