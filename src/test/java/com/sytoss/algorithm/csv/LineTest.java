@@ -1,20 +1,19 @@
 package com.sytoss.algorithm.csv;
 
+
 import org.testng.annotations.Test;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import static org.testng.Assert.*;
+
 
 public class LineTest {
 
     private final static String PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\test.csv";
     private final static String LIST_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.csv";
+    private final static String XML_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
 
     @Test
     public static void newLine() {
@@ -81,6 +80,5 @@ public class LineTest {
         }
 
     }
-
 
 }

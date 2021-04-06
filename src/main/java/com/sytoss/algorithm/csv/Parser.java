@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.util.List;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.Namespace;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
@@ -21,7 +20,7 @@ public class Parser {
         return fc.getLines();
     }
 
-    public static void writeToXML(FileContent fc, String xmlPath) throws ParseException {
+    public Parser(FileContent fc, String xmlPath) throws ParseException {
         Document doc = new Document();
         doc.setRootElement(new Element("Persons"));
         for (PersonLine l : fc.getLines()) {
@@ -35,10 +34,8 @@ public class Parser {
             
         }
 
-        //JDOM document is ready now, lets write it to file now
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
-        //output xml to console for debugging
-        //xmlOutputter.output(doc, System.out);
+
 
         try {
             xmlOutputter.output(doc, new FileOutputStream(xmlPath));
@@ -51,7 +48,7 @@ public class Parser {
     public static void main(String[] args) {
 
         try {
-            writeToXML(new FileContent(LIST_PATH), OUTPUT_XML);
+            Parser parser = new Parser(new FileContent(LIST_PATH), OUTPUT_XML);
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
