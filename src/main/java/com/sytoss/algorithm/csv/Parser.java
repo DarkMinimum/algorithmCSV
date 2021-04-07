@@ -1,60 +1,51 @@
 package com.sytoss.algorithm.csv;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.List;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
+
 
 public class Parser {
 
-    private final static String LIST_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.csv";
-    private final static String OUTPUT_XML = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
+    Saver saver;
 
-    public static List<Line> parse(FileContent fc) {
+    //JDOM | Sax
+    public Parser(FileContent fc, String filePath) throws ParseException {
 
-        return fc.getLines();
+        String fileType = filePath.substring(filePath.indexOf(".") + 1);
+
+        if(fileType.equals("csv")) {
+
+            saver = new CSVSaver(fc, filePath);
+
+        }
+        else if(fileType.equals("xml")) {
+
+            if(fc.getLines().size() < 20) {
+                saver = new JDOMSaver(fc, filePath);
+            }
+            else {
+                saver = new SaxSaver(fc, filePath);
+            }
+        }
+
     }
 
-    public Parser(FileContent fc, String xmlPath) throws ParseException {
-        Document doc = new Document();
-        doc.setRootElement(new Element("Persons"));
-        for (Line line : fc.getLines()) {
-
-            PersonLine l = (PersonLine)line;
-
-            Element person = new Element("Person");
-            person.setAttribute("id", l.getNumber());
-            person.addContent((new Element("name").setText(l.getName())));
-            person.addContent((new Element("surname").setText(l.getSurname())));
-            person.addContent((new Element("date").setText(l.getDateXML())));
-            person.addContent((new Element("desc").setText(l.getNote())));
-            doc.getRootElement().addContent(person);
-            
-        }
-
-        XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
-
+    public static void main(String[] args) throws FileNotFoundException {
 
         try {
-            xmlOutputter.output(doc, new FileOutputStream(xmlPath));
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (args.length != 2) {
+                throw new IllegalArgumentException();
+            }
+            new Parser(new FileContent(args[1]), "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\testFromXMLtoXML.xml");
         }
+        catch(Exception e){
+            help(e);
+        }
+
+
     }
 
-    public static void main(String[] args) {
-
-        try {
-            new Parser(new FileContent(LIST_PATH), OUTPUT_XML);
-        } catch (FileNotFoundException | ParseException e) {
-            e.printStackTrace();
-        }
-
+    private static void help(Exception exp) {
+        System.out.println(exp.toString());
     }
 }

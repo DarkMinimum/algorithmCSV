@@ -67,7 +67,8 @@ public class LineTest {
 
     @Test
     public void compareValidInformation() throws FileNotFoundException {
-        List<Line> list = Parser.parse(new FileContent(LIST_PATH));
+
+        List<Line> list = new FileContent(LIST_PATH).getLines();
         String[][] expected = new String[][] {{"1","Jenya", "Vasiliev", "22.03.1995", "Our \"mentor\"."}};
 
         for (int i = 0; i < 1; i++) {

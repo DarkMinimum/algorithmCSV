@@ -57,14 +57,14 @@ public class PersonLine extends Line {
         return getCells().get(2);
     }
 
-    public String getDateXML() throws ParseException {
+    public String getBirthdayXML() throws ParseException {
         SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy");
         Calendar cal = Calendar.getInstance();
         cal.setTime(date.parse(getCells().get(3)));
         return cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1) +"-"+cal.get(Calendar.DAY_OF_MONTH);
     }
 
-    public Date getDate() throws ParseException {
+    public Date getBirthday() throws ParseException {
         return new SimpleDateFormat("dd.MM.yyyy").parse(getCells().get(3));
     }
 
