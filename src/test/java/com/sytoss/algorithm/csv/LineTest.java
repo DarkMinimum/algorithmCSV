@@ -13,7 +13,7 @@ public class LineTest {
 
     private final static String PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\test.csv";
     private final static String LIST_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.csv";
-    //private final static String XML_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
+    private final static String XML_PATH = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
 
     @Test
     public void newLine() {
