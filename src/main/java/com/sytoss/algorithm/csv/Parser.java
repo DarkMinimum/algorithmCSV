@@ -36,7 +36,7 @@ public class Parser {
             if (args.length != 2) {
                 throw new IllegalArgumentException();
             }
-            new Parser(new FileContent(args[1]), "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\testFromXMLtoXML.xml");
+            new Parser(new FileContent(args[0]), args[1]);
         }
         catch(Exception e){
             help(e);
