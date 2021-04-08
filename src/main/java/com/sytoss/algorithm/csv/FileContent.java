@@ -126,8 +126,7 @@ public class FileContent {
 
         for (Element element: tree) {
 
-            String rawDate = element.getChildText("date");
-            String date = rawDate.substring(rawDate.lastIndexOf("-")+1) + "." + rawDate.substring(rawDate.indexOf("-")+1, rawDate.lastIndexOf("-")) + "." + rawDate.substring(0,4);
+            String date = generateDate(element.getChildText("date"));
 
             String person = element.getAttributeValue("id") + "," +
                     element.getChildText("name") + "," +
@@ -143,6 +142,17 @@ public class FileContent {
             getLines().get(i).validate();
 
         }
+    }
+
+    private String generateDate(String rawDate) {
+
+        String rawMonth = rawDate.substring(rawDate.indexOf("-")+1, rawDate.lastIndexOf("-"));
+        String month = (Integer.parseInt(rawMonth) < 10) ? "0" + rawMonth : rawMonth;
+
+        String rawDay = rawDate.substring(rawDate.lastIndexOf("-")+1);
+        String day = (Integer.parseInt(rawDay) < 10) ? "0" + rawDay : rawDay;
+
+        return day + "." + month + "." + rawDate.substring(0,4);
     }
     public List<Line> getLines() {
         return Collections.unmodifiableList(lines);

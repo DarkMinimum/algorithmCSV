@@ -12,8 +12,9 @@ import static org.junit.Assert.*;
 public class FileContentTest {
 
     private static final String CSV_SOURCE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.csv";
-    private static final String XML_SOURCE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
     private static final String CSV_OUTPUT = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\outputToCSV.csv";
+    private static final String XML_SOURCE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
+    private static final String XML_OUTPUT = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\outputToXML.xml";
 
 
     @Test
@@ -32,8 +33,27 @@ public class FileContentTest {
     }
 
     @Test
-    public void fromCSVtoXMUsingJSDOM() {
+    public void fromCSVtoXMUsingJSDOM() throws FileNotFoundException, ParseException {
+        FileContent fileContent1 = new FileContent(CSV_SOURCE);
+        List<Line> linesOriginal = fileContent1.getLines();
+        Parser parser = new Parser(fileContent1, XML_OUTPUT);
 
+        FileContent fileContent2 = new FileContent(XML_OUTPUT);
+        List<Line> linesFromSavedFile = fileContent2.getLines();
+
+        //persons count
+        for (int i = 0; i < linesFromSavedFile.size(); i++) {
+
+            //cells separately
+            for (int j = 0; j < linesFromSavedFile.get(i).cells.size(); j++) {
+                String original = linesOriginal.get(i).cells.get(j);
+                String fromFile = linesFromSavedFile.get(i).cells.get(j);
+
+                //System.out.println(original + " " + fromFile);
+                assertTrue(original.equals(fromFile));
+            }
+
+        }
     }
 
     @Test
