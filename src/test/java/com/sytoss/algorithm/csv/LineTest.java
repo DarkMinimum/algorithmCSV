@@ -1,6 +1,6 @@
 package com.sytoss.algorithm.csv;
 
-import junit.framework.TestCase;
+
 import org.junit.Test;
 
 import java.io.FileNotFoundException;

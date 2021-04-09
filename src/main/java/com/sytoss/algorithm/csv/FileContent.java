@@ -56,6 +56,7 @@ public class FileContent {
 
     }
 
+    /*
     private void readXMLToSAX(String filePath) {
 
         try {
@@ -83,7 +84,7 @@ public class FileContent {
         catch(Exception exception) {
             exception.printStackTrace();
         }
-    }
+    }*/
 
     private Document readXMLToSAXj(String filePath) {
 

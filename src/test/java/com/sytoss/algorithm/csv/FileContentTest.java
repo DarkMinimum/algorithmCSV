@@ -15,7 +15,7 @@ public class FileContentTest {
     private static final String CSV_OUTPUT = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\outputToCSV.csv";
     private static final String XML_SOURCE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
     private static final String XML_OUTPUT = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\outputToXML.xml";
-
+    private static final String XML_SOURCE_LARGE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\longListForXML.xml";
 
     @Test
     public void getLinesFromCSV() throws FileNotFoundException {
@@ -57,7 +57,11 @@ public class FileContentTest {
     }
 
     @Test
-    public void fromCSVtoXMUsingSAX() {
+    public void fromCSVtoXMUsingSAXj() throws FileNotFoundException {
+        FileContent fileContent = new FileContent(XML_SOURCE_LARGE);
+
+        List<Line> lines = fileContent.getLines();
+        assertTrue(lines.size() >= 999);
 
     }
 

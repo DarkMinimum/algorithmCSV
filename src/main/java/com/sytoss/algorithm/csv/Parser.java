@@ -1,6 +1,5 @@
 package com.sytoss.algorithm.csv;
 
-import java.io.FileNotFoundException;
 import java.text.ParseException;
 
 
@@ -30,7 +29,7 @@ public class Parser {
 
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         try {
             if (args.length != 2) {
