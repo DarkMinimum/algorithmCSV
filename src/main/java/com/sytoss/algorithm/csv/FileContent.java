@@ -19,40 +19,21 @@ import java.util.Scanner;
 
 public class FileContent {
 
-    private List<Line> lines  = new ArrayList<>();
+    private List<Line> lines;
+    private Reader reader;
 
-    public FileContent(String filePath) throws FileNotFoundException {
+    public FileContent(String filePath) {
 
         String fileType = filePath.substring(filePath.indexOf(".") + 1);
-        File file = new File(filePath);
 
-        if(fileType.equals("csv")) {
 
-            Scanner sc = new Scanner(file);
+        if(fileType.equals("csv"))
+            reader = new CSVReader();
 
-            while (sc.hasNextLine())
-                lines.add(new PersonLine(sc.nextLine()));
+        else if(fileType.equals("xml"))
+            reader = new XMLReader();
 
-            validateLines();
-            sc.close();
-        }
-        else if(fileType.equals("xml")) {
-
-            Document document = null;
-
-            double bytes = file.length();
-            bytes = bytes / 1024;
-
-            document = (bytes < 20d) ?  readXMLToJDOM(filePath) : readXMLToSAXj(filePath);
-            /*if(bytes > 20d) {
-                Document document = readXMLToJDOM(filePath);
-                fromDocumentToLines(document);
-            }
-            else {
-                readXMLToSAX(filePath);
-            }*/
-            fromDocumentToLines(document);
-        }
+        lines = reader.read(filePath);
 
     }
 
@@ -86,75 +67,7 @@ public class FileContent {
         }
     }*/
 
-    private Document readXMLToSAXj(String filePath) {
 
-        Document result = null;
-
-        SAXBuilder builder = new SAXBuilder();
-        try
-        {
-            result = builder.build(filePath);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-    private Document readXMLToJDOM(String filePath) {
-
-        Document result = null;
-
-        try
-        {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-            org.w3c.dom.Document w3cDocument = documentBuilder.parse(filePath);
-            result = new DOMBuilder().build(w3cDocument);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-    private void fromDocumentToLines(Document document) {
-        ///from document to array
-        Element rootNode = document.getRootElement();
-        List<Element> tree = rootNode.getChildren("Person");
-
-        for (Element element: tree) {
-
-            String date = generateDate(element.getChildText("date"));
-
-            String person = element.getAttributeValue("id") + "," +
-                    element.getChildText("name") + "," +
-                    element.getChildText("surname") + "," +
-                    date + "," +
-                    element.getChildText("desc");
-
-            lines.add(new PersonLine(person));
-        }
-    }
-    private void validateLines() {
-        for (int i = 0; i < getLines().size(); i++) {
-            getLines().get(i).validate();
-
-        }
-    }
-
-    private String generateDate(String rawDate) {
-
-        String rawMonth = rawDate.substring(rawDate.indexOf("-")+1, rawDate.lastIndexOf("-"));
-        String month = (Integer.parseInt(rawMonth) < 10) ? "0" + rawMonth : rawMonth;
-
-        String rawDay = rawDate.substring(rawDate.lastIndexOf("-")+1);
-        String day = (Integer.parseInt(rawDay) < 10) ? "0" + rawDay : rawDay;
-
-        return day + "." + month + "." + rawDate.substring(0,4);
-    }
     public List<Line> getLines() {
         return Collections.unmodifiableList(lines);
     }
