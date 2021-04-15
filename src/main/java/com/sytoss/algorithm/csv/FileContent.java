@@ -1,26 +1,13 @@
 package com.sytoss.algorithm.csv;
 
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.input.DOMBuilder;
-import org.jdom2.input.SAXBuilder;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class FileContent {
 
     private List<Line> lines;
-    private Reader reader;
+    private IReader IReader;
 
     public FileContent(String filePath) {
 
@@ -28,12 +15,12 @@ public class FileContent {
 
 
         if(fileType.equals("csv"))
-            reader = new CSVReader();
+            IReader = new CSVIReader();
 
         else if(fileType.equals("xml"))
-            reader = new XMLReader();
+            IReader = new XMLIReader();
 
-        lines = reader.read(filePath);
+        lines = IReader.read(filePath);
 
     }
 

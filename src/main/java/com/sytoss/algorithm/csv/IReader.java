@@ -3,7 +3,7 @@ package com.sytoss.algorithm.csv;
 import java.io.File;
 import java.util.List;
 
-public interface Reader {
+public interface IReader {
 
     List<Line> read(String filePath);
 

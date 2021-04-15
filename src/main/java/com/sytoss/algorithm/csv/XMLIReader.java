@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLReader implements Reader {
+public class XMLIReader implements IReader {
 
     @Override
     public List<Line> read(String filePath) {

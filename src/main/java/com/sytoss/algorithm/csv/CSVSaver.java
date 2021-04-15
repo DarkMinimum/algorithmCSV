@@ -3,7 +3,7 @@ package com.sytoss.algorithm.csv;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-public class CSVSaver implements Saver {
+public class CSVSaver implements ISaver {
 
     public CSVSaver(FileContent fc, String csvPath) {
         write(fc, csvPath);
@@ -43,7 +43,7 @@ public class CSVSaver implements Saver {
                         tmpWord.append(character);
                     }
 
-                    Boolean flag = false;
+                    boolean flag = false;
                     //cells characters
                     for (int k = 0; k < tmpWord.length(); k++) {
 

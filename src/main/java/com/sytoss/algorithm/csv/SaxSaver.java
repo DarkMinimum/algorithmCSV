@@ -1,6 +1,6 @@
 package com.sytoss.algorithm.csv;
 
-public class SaxSaver implements Saver {
+public class SaxSaver implements ISaver {
 
     public SaxSaver(FileContent fc, String filePath) {
         write(fc, filePath);

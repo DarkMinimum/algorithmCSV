@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CSVReader implements Reader {
+public class CSVIReader implements IReader {
 
     @Override
     public List<Line> read(String filePath) {

@@ -6,9 +6,8 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 
-public class JDOMSaver implements Saver {
+public class JDOMSaver implements ISaver {
 
     public JDOMSaver(FileContent fc, String xmlPath) {
         write(fc, xmlPath);

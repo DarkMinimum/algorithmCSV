@@ -5,10 +5,10 @@ import java.text.ParseException;
 
 public class Parser {
 
-    Saver saver;
+    ISaver saver;
 
     //JDOM | Sax
-    public Parser(FileContent fc, String filePath) throws ParseException {
+    public Parser(FileContent fc, String filePath) {
 
         String fileType = filePath.substring(filePath.indexOf(".") + 1);
 
