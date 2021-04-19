@@ -1,37 +1,57 @@
-package com.sytoss.algorithm.csv;
+package com.sytoss.algorithm.csv.readers;
 
+import com.sytoss.algorithm.csv.lines.Line;
+import com.sytoss.algorithm.csv.lines.PersonLine;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
 import org.jdom2.input.SAXBuilder;
+import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLIReader implements IReader {
+
+
+public class XMLReader implements IReader {
 
     @Override
-    public List<Line> read(String filePath) {
+    public List<Line> read(String filePath) throws SAXException, ParserConfigurationException, IOException {
 
         File file = new File(filePath);
-        Document document;
+        //Document document;
 
         double bytes = file.length();
         bytes = bytes / 1024;
 
-        document = (bytes < 20d) ?  readXMLToJDOM(filePath) : readXMLToSAXj(filePath);
-            /*if(bytes > 20d) {
+
+            if(bytes > 20d) {
                 Document document = readXMLToJDOM(filePath);
-                fromDocumentToLines(document);
+                return fromDocumentToLines(document);
             }
             else {
-                readXMLToSAX(filePath);
-            }*/
 
-        return fromDocumentToLines(document);
+                return readXMLToSAX(filePath);
+            }
+
+
+    }
+
+    private List<Line> readXMLToSAX(String filePath) throws ParserConfigurationException, SAXException, IOException {
+
+        List<Line> persons = new ArrayList<>();
+
+
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+
+        SaxReader handler = new SaxReader();
+        parser.parse(new File(filePath), handler);
+
+        return handler.getResultList();
     }
 
     private Document readXMLToSAXj(String filePath) {

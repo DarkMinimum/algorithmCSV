@@ -1,5 +1,8 @@
-package com.sytoss.algorithm.csv;
+package com.sytoss.algorithm.csv.savers;
 
+import com.sytoss.algorithm.csv.readers.FileContent;
+import com.sytoss.algorithm.csv.lines.Line;
+import com.sytoss.algorithm.csv.lines.PersonLine;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;

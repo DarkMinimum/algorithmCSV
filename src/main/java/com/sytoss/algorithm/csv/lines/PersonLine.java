@@ -1,4 +1,6 @@
-package com.sytoss.algorithm.csv;
+package com.sytoss.algorithm.csv.lines;
+
+import com.sytoss.algorithm.csv.lines.Line;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +14,7 @@ public class PersonLine extends Line {
     }
 
     @Override
-    protected final void validate() {
+    public final void validate() {
 
         for (int j = 0; j < this.cells.size(); j++) {
             StringBuilder word = new StringBuilder(this.cells.get(j));
@@ -56,19 +58,15 @@ public class PersonLine extends Line {
     public String getSurname() {
         return getCells().get(2);
     }
-
     public String getBirthdayXML() throws ParseException {
         SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy");
         Calendar cal = Calendar.getInstance();
         cal.setTime(date.parse(getCells().get(3)));
         return cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1) +"-"+cal.get(Calendar.DAY_OF_MONTH);
     }
-
     public Date getBirthday() throws ParseException {
         return new SimpleDateFormat("dd.MM.yyyy").parse(getCells().get(3));
     }
-
-
     public String getNote() {
         return getCells().get(4);
     }

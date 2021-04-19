@@ -1,9 +1,15 @@
 package com.sytoss.algorithm.csv;
 
+import com.sytoss.algorithm.csv.lines.Line;
+import com.sytoss.algorithm.csv.lines.PersonLine;
+import com.sytoss.algorithm.csv.readers.FileContent;
+import com.sytoss.algorithm.csv.savers.SaxSaver;
 import org.junit.Test;
+import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -16,9 +22,9 @@ public class FileContentTest {
     private static final String XML_SOURCE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\list.xml";
     private static final String XML_OUTPUT = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\outputToXML.xml";
     private static final String XML_SOURCE_LARGE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\longListForXML.xml";
-
+    private static final String XML_SAX_OUTPUT = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\SaxSaverTest.xml";
     @Test
-    public void getLinesFromCSV() throws FileNotFoundException {
+    public void getLinesFromCSV() throws IOException, SAXException, ParserConfigurationException {
 
         FileContent fileContent = new FileContent(CSV_SOURCE);
         List<Line> persons = fileContent.getLines();
@@ -26,14 +32,14 @@ public class FileContentTest {
         for (Line line: persons) {
             PersonLine person = (PersonLine) line;
 
-            for (int i = 0; i < line.cells.size(); i++) {
-                assertFalse(line.cells.get(i).isEmpty());
+            for (int i = 0; i < line.getCells().size(); i++) {
+                assertFalse(line.getCells().get(i).isEmpty());
             }
         }
     }
 
     @Test
-    public void fromCSVtoXMUsingJSDOM() throws FileNotFoundException, ParseException {
+    public void fromCSVtoXMUsingJDOM() throws IOException, ParseException, SAXException, ParserConfigurationException, XmlPullParserException {
         FileContent fileContent1 = new FileContent(CSV_SOURCE);
         List<Line> linesOriginal = fileContent1.getLines();
         Parser parser = new Parser(fileContent1, XML_OUTPUT);
@@ -44,12 +50,19 @@ public class FileContentTest {
         //persons count
         for (int i = 0; i < linesFromSavedFile.size(); i++) {
 
-            //cells separately
-            for (int j = 0; j < linesFromSavedFile.get(i).cells.size(); j++) {
-                String original = linesOriginal.get(i).cells.get(j);
-                String fromFile = linesFromSavedFile.get(i).cells.get(j);
+            //getCells() separately
+            for (int j = 0; j < linesFromSavedFile.get(i).getCells().size(); j++) {
 
-                //System.out.println(original + " " + fromFile);
+                String original = linesOriginal.get(i).getCells().get(j);
+                String fromFile = linesFromSavedFile.get(i).getCells().get(j);
+
+
+                if(j == 3) {
+
+                    assertTrue(((PersonLine)linesOriginal.get(i)).getBirthdayXML().equals(linesFromSavedFile.get(i).getCells().get(j)));
+                    continue;
+                }
+
                 assertTrue(original.equals(fromFile));
             }
 
@@ -57,7 +70,7 @@ public class FileContentTest {
     }
 
     @Test
-    public void fromCSVtoXMUsingSAXj() throws FileNotFoundException {
+    public void fromCSVtoXMUsingSAXj() throws IOException, SAXException, ParserConfigurationException {
         FileContent fileContent = new FileContent(XML_SOURCE_LARGE);
 
         List<Line> lines = fileContent.getLines();
@@ -66,7 +79,7 @@ public class FileContentTest {
     }
 
     @Test
-    public void fromXMLtoCSV() throws FileNotFoundException, ParseException {
+    public void fromXMLtoCSV() throws IOException, ParseException, SAXException, ParserConfigurationException, XmlPullParserException {
 
         FileContent fileContent1 = new FileContent(XML_SOURCE);
         List<Line> linesOriginal = fileContent1.getLines();
@@ -80,15 +93,21 @@ public class FileContentTest {
         //persons count
         for (int i = 0; i < linesFromSavedFile.size(); i++) {
 
-            //cells separately
-            for (int j = 0; j < linesFromSavedFile.get(i).cells.size(); j++) {
-                String original = linesOriginal.get(i).cells.get(j);
-                String fromFile = linesFromSavedFile.get(i).cells.get(j);
+            //getCells() separately
+            for (int j = 0; j < linesFromSavedFile.get(i).getCells().size(); j++) {
+                String original = linesOriginal.get(i).getCells().get(j);
+                String fromFile = linesFromSavedFile.get(i).getCells().get(j);
 
                 assertTrue(original.equals(fromFile));
             }
 
         }
+    }
+
+    @Test
+    public void usingSaxSaver() throws IOException, SAXException, ParserConfigurationException, XmlPullParserException {
+        FileContent fc = new FileContent(CSV_SOURCE);
+        SaxSaver saver = new SaxSaver(fc, XML_SAX_OUTPUT);
     }
 
 }

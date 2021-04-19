@@ -1,4 +1,7 @@
-package com.sytoss.algorithm.csv;
+package com.sytoss.algorithm.csv.savers;
+
+import com.sytoss.algorithm.csv.readers.FileContent;
+import com.sytoss.algorithm.csv.lines.PersonLine;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -26,9 +29,9 @@ public class CSVSaver implements ISaver {
                 StringBuilder personString = new StringBuilder();
 
                 //persons cells
-                for (int j = 0; j < person.cells.size(); j++) {
+                for (int j = 0; j < person.getCells().size(); j++) {
 
-                    StringBuilder word = new StringBuilder(person.cells.get(j));
+                    StringBuilder word = new StringBuilder(person.getCells().get(j));
                     StringBuilder tmpWord = new StringBuilder();
 
                     //double \"

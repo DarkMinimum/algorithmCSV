@@ -1,6 +1,13 @@
 package com.sytoss.algorithm.csv;
 
-import java.text.ParseException;
+import com.sytoss.algorithm.csv.readers.FileContent;
+import com.sytoss.algorithm.csv.savers.CSVSaver;
+import com.sytoss.algorithm.csv.savers.ISaver;
+import com.sytoss.algorithm.csv.savers.JDOMSaver;
+import com.sytoss.algorithm.csv.savers.SaxSaver;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 
 
 public class Parser {
@@ -8,7 +15,7 @@ public class Parser {
     ISaver saver;
 
     //JDOM | Sax
-    public Parser(FileContent fc, String filePath) {
+    public Parser(FileContent fc, String filePath) throws XmlPullParserException, IOException {
 
         String fileType = filePath.substring(filePath.indexOf(".") + 1);
 

@@ -1,9 +1,14 @@
 package com.sytoss.algorithm.csv;
 
 
+import com.sytoss.algorithm.csv.lines.Line;
+import com.sytoss.algorithm.csv.lines.PersonLine;
+import com.sytoss.algorithm.csv.readers.FileContent;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
-import java.io.FileNotFoundException;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,12 +38,12 @@ public class LineTest {
     }
 
     @Test
-    public void compareNonValidInformation() throws FileNotFoundException {
+    public void compareNonValidInformation() throws IOException, SAXException, ParserConfigurationException {
         FileContent content = new FileContent(PATH);
         String[][] example = new String[][]{{"da", "da", "net"}, {"not", "yep", "da"}};
 
         for (int i = 0; i < content.getLines().size(); i++) {
-            for (int j = 0; j < content.getLines().get(i).cells.size(); j++) {
+            for (int j = 0; j < content.getLines().get(i).getCells().size(); j++) {
 
                 assertEquals(content.getLines().get(i).getCells().get(j), example[i][j]);
 
@@ -49,7 +54,7 @@ public class LineTest {
     }
 
     @Test
-    public void compareValidInformation() throws FileNotFoundException {
+    public void compareValidInformation() throws IOException, SAXException, ParserConfigurationException {
 
         List<Line> list = new FileContent(LIST_PATH).getLines();
         String[][] expected = new String[][] {{"1","Jenya", "Vasiliev", "22.03.1995", "Our \"mentor\"."}};
@@ -80,7 +85,7 @@ public class LineTest {
         example2.add("22.03.1995");
         example2.add("Our \"mentor\".");
 
-        assertEquals(example1, line.cells);
+        assertEquals(example1, line.getCells());
         line.validate();
 
         //number
@@ -90,7 +95,7 @@ public class LineTest {
         //Surname
         assertEquals(line.getSurname(), example2.get(2));
         //Year
-        assertEquals(line.cells.get(3), example2.get(3));
+        assertEquals(line.getCells().get(3), example2.get(3));
         //Note
         assertEquals(line.getNote(), example2.get(4));
         //xmlDate
@@ -99,8 +104,8 @@ public class LineTest {
         Date dateTest = new SimpleDateFormat("dd.MM.yyyy").parse("22.03.1995");
         assertTrue(line.getBirthday().equals(dateTest));
 
-        for (int i = 0; i < line.cells.size(); i++) {
-            assertEquals(line.cells.get(i), example2.get(i));
+        for (int i = 0; i < line.getCells().size(); i++) {
+            assertEquals(line.getCells().get(i), example2.get(i));
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.sytoss.algorithm.csv;
+package com.sytoss.algorithm.csv.lines;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Line {
         return this.cells;
     }
 
-    protected void validate() throws RuntimeException {
+    public void validate() throws RuntimeException {
 
     }
 }

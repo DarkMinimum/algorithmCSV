@@ -1,4 +1,7 @@
-package com.sytoss.algorithm.csv;
+package com.sytoss.algorithm.csv.readers;
+
+import com.sytoss.algorithm.csv.lines.Line;
+import com.sytoss.algorithm.csv.lines.PersonLine;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CSVIReader implements IReader {
+public class CSVReader implements IReader {
 
     @Override
     public List<Line> read(String filePath) {
