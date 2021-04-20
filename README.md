@@ -21,5 +21,10 @@ Update from 08.04.2021
  - New tests for FileContent class.
  - New tests for PersonLine & Line classes.
 
+Update from 20.03/04.2021
+- Added implementation for `XMLpullParser API`.
+- Added `FastXmlSerializer`.
+- Added `SaxSaver` implementation via `XMLpullParser API`.
+
 
 Was created by DarkMinimum & Zody.
