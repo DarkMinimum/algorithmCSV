@@ -1,4 +1,4 @@
-package com.sytoss.algorithm.csv.savers;
+package com.sytoss.algorithm.csv.writer;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -145,17 +145,17 @@ public class FastXmlSerializer implements XmlSerializer {
         return this;
     }
 
-    public void cdsect(String text) throws IOException, IllegalArgumentException,
+    public void cdsect(String text) throws IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
 
-    public void comment(String text) throws IOException, IllegalArgumentException,
+    public void comment(String text) throws IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
 
-    public void docdecl(String text) throws IOException, IllegalArgumentException,
+    public void docdecl(String text) throws IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
@@ -181,7 +181,7 @@ public class FastXmlSerializer implements XmlSerializer {
         return this;
     }
 
-    public void entityRef(String text) throws IOException, IllegalArgumentException,
+    public void entityRef(String text) throws IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
@@ -246,12 +246,12 @@ public class FastXmlSerializer implements XmlSerializer {
         throw new UnsupportedOperationException();
     }
 
-    public void ignorableWhitespace(String text) throws IOException, IllegalArgumentException,
+    public void ignorableWhitespace(String text) throws IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
 
-    public void processingInstruction(String text) throws IOException, IllegalArgumentException,
+    public void processingInstruction(String text) throws IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
@@ -288,13 +288,12 @@ public class FastXmlSerializer implements XmlSerializer {
         }
     }
 
-    public void setOutput(Writer writer) throws IOException, IllegalArgumentException,
+    public void setOutput(Writer writer) throws IllegalArgumentException,
             IllegalStateException {
         mWriter = writer;
     }
 
-    public void setPrefix(String prefix, String namespace) throws IOException,
-            IllegalArgumentException, IllegalStateException {
+    public void setPrefix(String prefix, String namespace) throws IllegalArgumentException, IllegalStateException {
         throw new UnsupportedOperationException();
     }
 

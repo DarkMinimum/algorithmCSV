@@ -11,25 +11,24 @@ import java.util.List;
 
 public class FileContent {
 
-    private List<Line> lines;
-    private com.sytoss.algorithm.csv.readers.IReader IReader;
 
-    public FileContent(String filePath) throws ParserConfigurationException, SAXException, IOException {
+    private IReader reader;
 
-        String fileType = filePath.substring(filePath.indexOf(".") + 1);
+    private IReader getDataType(String filePath) {
+      String fileType = filePath.substring(filePath.indexOf(".") + 1);
 
+      if(fileType.equals("csv")) {
+          return new CSVReader();
+      }
+      else if(fileType.equals("xml")) {
+          return new XMLReader();
+      }
+      else return null;
+  }
 
-        if(fileType.equals("csv"))
-            IReader = new CSVReader();
-
-        else if(fileType.equals("xml"))
-            IReader = new XMLReader();
-
-        lines = IReader.read(filePath);
-
-    }
-
-    public List<Line> getLines() {
+    public List<Line> getLines(String filePath) throws ParserConfigurationException, SAXException, IOException {
+        reader = getDataType(filePath);
+        List<Line> lines = reader.read(filePath);
         return Collections.unmodifiableList(lines);
     }
 

@@ -16,26 +16,25 @@ import java.util.List;
 
 
 
-public class XMLReader implements IReader {
+public class XMLReader extends IReader {
 
     @Override
     public List<Line> read(String filePath) throws SAXException, ParserConfigurationException, IOException {
 
         File file = new File(filePath);
-        //Document document;
 
         double bytes = file.length();
         bytes = bytes / 1024;
 
 
-            if(bytes > 20d) {
-                Document document = readXMLToJDOM(filePath);
-                return fromDocumentToLines(document);
-            }
-            else {
+        if(bytes > 20d) {
+            Document document = readXMLToJDOM(filePath);
+            return fromDocumentToLines(document);
+        }
+        else {
 
-                return readXMLToSAX(filePath);
-            }
+            return readXMLToSAX(filePath);
+        }
 
 
     }
@@ -111,6 +110,7 @@ public class XMLReader implements IReader {
 
         return lines;
     }
+
     private String generateDate(String rawDate) {
 
         String rawMonth = rawDate.substring(rawDate.indexOf("-")+1, rawDate.lastIndexOf("-"));

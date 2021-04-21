@@ -1,19 +1,20 @@
-package com.sytoss.algorithm.csv.savers;
+package com.sytoss.algorithm.csv.writer;
 
-import com.sytoss.algorithm.csv.readers.FileContent;
+import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.lines.PersonLine;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.List;
 
-public class CSVSaver implements ISaver {
+public class CSVWriter implements IWriter {
 
-    public CSVSaver(FileContent fc, String csvPath) {
-        write(fc, csvPath);
+    public CSVWriter(List<Line> lines, String csvPath) {
+        write(lines, csvPath);
     }
 
     @Override
-    public void write(FileContent fc, String csvPath) {
+    public void write(List<Line> lines, String csvPath) {
 
         try {
 
@@ -23,9 +24,9 @@ public class CSVSaver implements ISaver {
 
 
             //persons
-            for (int i = 0; i < fc.getLines().size(); i++) {
+            for (Line line : lines) {
 
-                PersonLine person = (PersonLine) fc.getLines().get(i);
+                PersonLine person = (PersonLine) line;
                 StringBuilder personString = new StringBuilder();
 
                 //persons cells
@@ -56,16 +57,15 @@ public class CSVSaver implements ISaver {
                         }
                     }
 
-                    if(flag) {
+                    if (flag) {
                         personString.append("\"").append(tmpWord).append("\"");
-                    }
-                    else {
+                    } else {
                         personString.append(tmpWord);
                     }
                     personString.append(",");
 
                 }
-                personString.deleteCharAt(personString.length()-1);
+                personString.deleteCharAt(personString.length() - 1);
                 writer.append(personString.toString()).append("\n");
 
             }

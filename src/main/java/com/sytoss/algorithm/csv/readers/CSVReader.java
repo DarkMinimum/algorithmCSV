@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CSVReader implements IReader {
+public class CSVReader extends IReader {
 
     @Override
     public List<Line> read(String filePath) {

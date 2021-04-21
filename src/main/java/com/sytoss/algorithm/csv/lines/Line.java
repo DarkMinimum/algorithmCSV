@@ -10,7 +10,6 @@ public class Line {
     protected List<String> cells;
 
     public Line(String line) {
-        cells = new ArrayList();
         cells = asList( line.split(",") );
     }
 
@@ -18,7 +17,7 @@ public class Line {
         return this.cells;
     }
 
-    public void validate() throws RuntimeException {
+    public void transformToValid() throws RuntimeException {
 
     }
 }

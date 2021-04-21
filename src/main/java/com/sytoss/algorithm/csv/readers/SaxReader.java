@@ -17,17 +17,17 @@ public class SaxReader extends DefaultHandler {
     private String lastElementName;
 
     @Override
-    public void startDocument() throws SAXException {
+    public void startDocument() {
         // Тут будет логика реакции на начало документа
     }
 
     @Override
-    public void endDocument() throws SAXException {
+    public void endDocument() {
         // Тут будет логика реакции на конец документа
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
 
         lastElementName = qName;
 
@@ -42,7 +42,7 @@ public class SaxReader extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         String information = new String(ch, start, length);
 
         information = information.replace("\n", "").trim();
@@ -62,7 +62,7 @@ public class SaxReader extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         // Тут будет логика реакции на конец элемента
         if (person != null && qName.equals("Person")) {
             System.out.println(person.toString());
@@ -74,7 +74,7 @@ public class SaxReader extends DefaultHandler {
     }
 
     @Override
-    public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+    public void ignorableWhitespace(char[] ch, int start, int length) {
         // Тут будет логика реакции на пустое пространство внутри элементов (пробелы, переносы строчек и так далее).
     }
 

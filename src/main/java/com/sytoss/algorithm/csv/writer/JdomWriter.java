@@ -1,6 +1,5 @@
-package com.sytoss.algorithm.csv.savers;
+package com.sytoss.algorithm.csv.writer;
 
-import com.sytoss.algorithm.csv.readers.FileContent;
 import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.lines.PersonLine;
 import org.jdom2.Document;
@@ -9,22 +8,23 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import java.io.FileOutputStream;
+import java.util.List;
 
-public class JDOMSaver implements ISaver {
+public class JdomWriter implements IWriter {
 
-    public JDOMSaver(FileContent fc, String xmlPath) {
-        write(fc, xmlPath);
+    public JdomWriter(List<Line> lines, String xmlPath) {
+        write(lines, xmlPath);
     }
 
     @Override
-    public void write(FileContent fc, String xmlPath) {
+    public void write(List<Line> lines, String xmlPath) {
 
 
             try {
             Document doc = new Document();
             doc.setRootElement(new Element("Persons"));
 
-            for (Line line : fc.getLines()) {
+            for (Line line : lines) {
 
                 PersonLine l = (PersonLine) line;
 

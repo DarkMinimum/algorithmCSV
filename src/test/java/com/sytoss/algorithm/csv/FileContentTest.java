@@ -3,7 +3,7 @@ package com.sytoss.algorithm.csv;
 import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.lines.PersonLine;
 import com.sytoss.algorithm.csv.readers.FileContent;
-import com.sytoss.algorithm.csv.savers.SaxSaver;
+import com.sytoss.algorithm.csv.writer.SaxWriter;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
@@ -26,11 +26,9 @@ public class FileContentTest {
     @Test
     public void getLinesFromCSV() throws IOException, SAXException, ParserConfigurationException {
 
-        FileContent fileContent = new FileContent(CSV_SOURCE);
-        List<Line> persons = fileContent.getLines();
+        List<Line> persons = new FileContent().getLines(CSV_SOURCE);
 
         for (Line line: persons) {
-            PersonLine person = (PersonLine) line;
 
             for (int i = 0; i < line.getCells().size(); i++) {
                 assertFalse(line.getCells().get(i).isEmpty());
@@ -39,13 +37,12 @@ public class FileContentTest {
     }
 
     @Test
-    public void fromCSVtoXMUsingJDOM() throws IOException, ParseException, SAXException, ParserConfigurationException, XmlPullParserException {
-        FileContent fileContent1 = new FileContent(CSV_SOURCE);
-        List<Line> linesOriginal = fileContent1.getLines();
-        Parser parser = new Parser(fileContent1, XML_OUTPUT);
+    public void fromCSVtoXMUsingJDOM() throws IOException, ParseException, SAXException, ParserConfigurationException {
 
-        FileContent fileContent2 = new FileContent(XML_OUTPUT);
-        List<Line> linesFromSavedFile = fileContent2.getLines();
+        List<Line> linesOriginal = new FileContent().getLines(CSV_SOURCE);
+        Parser parser = new Parser(linesOriginal, XML_OUTPUT);
+
+        List<Line> linesFromSavedFile = new FileContent().getLines(XML_OUTPUT);
 
         //persons count
         for (int i = 0; i < linesFromSavedFile.size(); i++) {
@@ -59,11 +56,11 @@ public class FileContentTest {
 
                 if(j == 3) {
 
-                    assertTrue(((PersonLine)linesOriginal.get(i)).getBirthdayXML().equals(linesFromSavedFile.get(i).getCells().get(j)));
+                    assertEquals(((PersonLine) linesOriginal.get(i)).getBirthdayXML(), linesFromSavedFile.get(i).getCells().get(j));
                     continue;
                 }
 
-                assertTrue(original.equals(fromFile));
+                assertEquals(original, fromFile);
             }
 
         }
@@ -71,22 +68,18 @@ public class FileContentTest {
 
     @Test
     public void fromCSVtoXMUsingSAXj() throws IOException, SAXException, ParserConfigurationException {
-        FileContent fileContent = new FileContent(XML_SOURCE_LARGE);
-
-        List<Line> lines = fileContent.getLines();
+        List<Line> lines = new FileContent().getLines(XML_SOURCE_LARGE);
         assertTrue(lines.size() >= 999);
 
     }
 
     @Test
-    public void fromXMLtoCSV() throws IOException, ParseException, SAXException, ParserConfigurationException, XmlPullParserException {
+    public void fromXMLtoCSV() throws IOException, SAXException, ParserConfigurationException {
 
-        FileContent fileContent1 = new FileContent(XML_SOURCE);
-        List<Line> linesOriginal = fileContent1.getLines();
-        Parser parser = new Parser(fileContent1, CSV_OUTPUT);
 
-        FileContent fileContent2 = new FileContent(CSV_OUTPUT);
-        List<Line> linesFromSavedFile = fileContent2.getLines();
+        List<Line> linesOriginal = new FileContent().getLines(XML_SOURCE);
+        Parser parser = new Parser(linesOriginal, CSV_OUTPUT);
+        List<Line> linesFromSavedFile = new FileContent().getLines(CSV_OUTPUT);
 
         assertEquals(linesOriginal.size(), linesFromSavedFile.size());
 
@@ -98,16 +91,15 @@ public class FileContentTest {
                 String original = linesOriginal.get(i).getCells().get(j);
                 String fromFile = linesFromSavedFile.get(i).getCells().get(j);
 
-                assertTrue(original.equals(fromFile));
+                assertEquals(original, fromFile);
             }
 
         }
     }
 
     @Test
-    public void usingSaxSaver() throws IOException, SAXException, ParserConfigurationException, XmlPullParserException {
-        FileContent fc = new FileContent(CSV_SOURCE);
-        SaxSaver saver = new SaxSaver(fc, XML_SAX_OUTPUT);
+    public void usingSaxSaver() throws IOException, SAXException, ParserConfigurationException {
+        SaxWriter saver = new SaxWriter(new FileContent().getLines(CSV_SOURCE), XML_SAX_OUTPUT);
     }
 
 }

@@ -30,7 +30,7 @@ public class LineTest {
         String str = "1,Dani,Grechishkin,8";
 
         Line line = new Line(str);
-        line.validate();
+        line.transformToValid();
         List<String> example = new ArrayList<>();
         Collections.addAll(example, str.split(","));
 
@@ -39,13 +39,13 @@ public class LineTest {
 
     @Test
     public void compareNonValidInformation() throws IOException, SAXException, ParserConfigurationException {
-        FileContent content = new FileContent(PATH);
+        List<Line> content = new FileContent().getLines(PATH);
         String[][] example = new String[][]{{"da", "da", "net"}, {"not", "yep", "da"}};
 
-        for (int i = 0; i < content.getLines().size(); i++) {
-            for (int j = 0; j < content.getLines().get(i).getCells().size(); j++) {
+        for (int i = 0; i < content.size(); i++) {
+            for (int j = 0; j < content.get(i).getCells().size(); j++) {
 
-                assertEquals(content.getLines().get(i).getCells().get(j), example[i][j]);
+                assertEquals(content.get(i).getCells().get(j), example[i][j]);
 
             }
 
@@ -56,7 +56,7 @@ public class LineTest {
     @Test
     public void compareValidInformation() throws IOException, SAXException, ParserConfigurationException {
 
-        List<Line> list = new FileContent(LIST_PATH).getLines();
+        List<Line> list = new FileContent().getLines(LIST_PATH);
         String[][] expected = new String[][] {{"1","Jenya", "Vasiliev", "22.03.1995", "Our \"mentor\"."}};
 
         for (int i = 0; i < 1; i++) {
@@ -86,7 +86,7 @@ public class LineTest {
         example2.add("Our \"mentor\".");
 
         assertEquals(example1, line.getCells());
-        line.validate();
+        line.transformToValid();
 
         //number
         assertEquals(line.getNumber(), example2.get(0));
@@ -102,7 +102,7 @@ public class LineTest {
         assertEquals(line.getBirthdayXML(), "1995-3-22");
         //Date type
         Date dateTest = new SimpleDateFormat("dd.MM.yyyy").parse("22.03.1995");
-        assertTrue(line.getBirthday().equals(dateTest));
+        assertEquals(line.getBirthday(), dateTest);
 
         for (int i = 0; i < line.getCells().size(); i++) {
             assertEquals(line.getCells().get(i), example2.get(i));

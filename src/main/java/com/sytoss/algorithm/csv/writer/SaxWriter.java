@@ -1,25 +1,22 @@
-package com.sytoss.algorithm.csv.savers;
+package com.sytoss.algorithm.csv.writer;
 
 import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.lines.PersonLine;
-import com.sytoss.algorithm.csv.readers.FileContent;
-import org.xml.sax.helpers.DefaultHandler;
 import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.*;
 import java.text.ParseException;
 import java.util.List;
 
-public class SaxSaver implements ISaver  {
+public class SaxWriter implements IWriter {
 
-    public SaxSaver(FileContent fc, String filePath) throws IOException {
-        write (fc, filePath);
+    public SaxWriter(List<Line> lines, String filePath) throws IOException {
+        write (lines, filePath);
     }
 
     @Override
-    public void write(FileContent fc, String filePath) throws IOException {
+    public void write(List<Line> lines, String filePath) throws IOException {
 
         //....
 
@@ -31,7 +28,7 @@ public class SaxSaver implements ISaver  {
             serializer.setOutput(out, "utf-8");
             serializer.startDocument(null, true);
             serializer.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
-            writeListXml(fc.getLines(), null, serializer);
+            writeListXml(lines, null, serializer);
             serializer.endDocument();
         }
          catch (Exception ex) {

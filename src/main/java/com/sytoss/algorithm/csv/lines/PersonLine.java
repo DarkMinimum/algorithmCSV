@@ -1,7 +1,5 @@
 package com.sytoss.algorithm.csv.lines;
 
-import com.sytoss.algorithm.csv.lines.Line;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,7 +12,7 @@ public class PersonLine extends Line {
     }
 
     @Override
-    public final void validate() {
+    public final void transformToValid() {
 
         for (int j = 0; j < this.cells.size(); j++) {
             StringBuilder word = new StringBuilder(this.cells.get(j));
@@ -48,7 +46,6 @@ public class PersonLine extends Line {
 
         }
     }
-
     public String getNumber() {
         return getCells().get(0);
     }
