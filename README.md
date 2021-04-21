@@ -11,7 +11,7 @@ You can create your own formats of lines by implementing new classes of `Parser`
 
 Second generation of parser from the CSV to xml. 05.04.2021 
 
-Third generation of parser from CSV/XML to CSV/XML via JDOM. 07.04.2021
+Fourth generation of parser from CSV/XML to CSV/XML via JDOM & XMLpullParser. 07.04.2021
  - Strategy Saver was created.
  - Created implementations of Saver interface.
  - Little fixes.
@@ -20,6 +20,11 @@ Update from 08.04.2021
  - Added resources file.
  - New tests for FileContent class.
  - New tests for PersonLine & Line classes.
+
+Update from 20.03/04.2021
+- Added implementation for `XMLpullParser API`.
+- Added `FastXmlSerializer`.
+- Added `SaxSaver` implementation via `XMLpullParser API`.
 
 
 Was created by DarkMinimum & Zody.
