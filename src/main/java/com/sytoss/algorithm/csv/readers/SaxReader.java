@@ -2,9 +2,15 @@ package com.sytoss.algorithm.csv.readers;
 import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.lines.PersonLine;
 import org.xml.sax.Attributes;
+
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +22,23 @@ public class SaxReader extends DefaultHandler {
     private StringBuilder person;
     private String lastElementName;
 
+    public List<Line> readXMLToSAX(String filePath) throws ParserConfigurationException, SAXException, IOException {
+
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        parser.parse(new File(filePath), this);
+
+        return persons;
+    }
+
     @Override
     public void startDocument() {
-        // Тут будет логика реакции на начало документа
+
     }
 
     @Override
     public void endDocument() {
-        // Тут будет логика реакции на конец документа
+
     }
 
     @Override
@@ -49,7 +64,6 @@ public class SaxReader extends DefaultHandler {
 
         if (!information.isEmpty()) {
 
-            //System.out.println(lastElementName + " " + information);
             if (lastElementName.equals("name"))
                 person.append(information).append(",");
             if (lastElementName.equals("surname"))
@@ -63,10 +77,9 @@ public class SaxReader extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) {
-        // Тут будет логика реакции на конец элемента
+
         if (person != null && qName.equals("Person")) {
-            System.out.println(person.toString());
-            persons.add(new PersonLine(person.toString()));
+           persons.add(new PersonLine(person.toString()));
 
         }
 
@@ -75,10 +88,7 @@ public class SaxReader extends DefaultHandler {
 
     @Override
     public void ignorableWhitespace(char[] ch, int start, int length) {
-        // Тут будет логика реакции на пустое пространство внутри элементов (пробелы, переносы строчек и так далее).
+
     }
 
-    public List<Line> getResultList() {
-        return this.persons;
-    }
 }

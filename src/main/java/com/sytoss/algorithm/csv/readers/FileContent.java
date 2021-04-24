@@ -12,10 +12,10 @@ import java.util.List;
 public class FileContent {
 
 
-    private IReader reader;
+    private Reader reader;
 
-    private IReader getDataType(String filePath) {
-      String fileType = filePath.substring(filePath.indexOf(".") + 1);
+    private Reader getDataType(String filePath) {
+      String fileType = filePath.substring(filePath.lastIndexOf(".") + 1);
 
       if(fileType.equals("csv")) {
           return new CSVReader();

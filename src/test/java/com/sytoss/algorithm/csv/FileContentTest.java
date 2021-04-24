@@ -2,11 +2,12 @@ package com.sytoss.algorithm.csv;
 
 import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.lines.PersonLine;
+import com.sytoss.algorithm.csv.readers.CSVReader;
 import com.sytoss.algorithm.csv.readers.FileContent;
-import com.sytoss.algorithm.csv.writer.SaxWriter;
+import com.sytoss.algorithm.csv.readers.SaxReader;
+import com.sytoss.algorithm.csv.writer.SAXWriter;
 import org.junit.Test;
 import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParserException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -23,6 +24,8 @@ public class FileContentTest {
     private static final String XML_OUTPUT = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\outputToXML.xml";
     private static final String XML_SOURCE_LARGE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\longListForXML.xml";
     private static final String XML_SAX_OUTPUT = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\SaxSaverTest.xml";
+    private static final String CSV_SOURCE_LARGE = "D:\\DevEnv\\Compilers\\algorithmCSV\\src\\test\\resources\\longListForXML.csv";
+
     @Test
     public void getLinesFromCSV() throws IOException, SAXException, ParserConfigurationException {
 
@@ -98,8 +101,22 @@ public class FileContentTest {
     }
 
     @Test
-    public void usingSaxSaver() throws IOException, SAXException, ParserConfigurationException {
-        SaxWriter saver = new SaxWriter(new FileContent().getLines(CSV_SOURCE), XML_SAX_OUTPUT);
+    public void usingSaxWriter() throws IOException, SAXException, ParserConfigurationException {
+        SAXWriter saver = new SAXWriter(new FileContent().getLines(CSV_SOURCE), XML_SAX_OUTPUT);
+    }
+
+    @Test
+    public void usingSaxReader() throws IOException, SAXException, ParserConfigurationException {
+        SaxReader reader = new SaxReader();
+        List<Line> lines = reader.readXMLToSAX(XML_SOURCE_LARGE);
+        List<Line> linesFrom = new CSVReader().read(CSV_SOURCE_LARGE);
+
+        if(lines.size() == linesFrom.size()) {
+            for (int i = 0; i < lines.size(); i++) {
+                assertEquals(lines.get(i), linesFrom.get(i));
+
+            }
+        }
     }
 
 }

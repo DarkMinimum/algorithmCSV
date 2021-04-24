@@ -4,12 +4,11 @@ import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.lines.PersonLine;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CSVReader extends IReader {
+public class CSVReader extends Reader {
 
     @Override
     public List<Line> read(String filePath) {
@@ -20,14 +19,14 @@ public class CSVReader extends IReader {
 
         try {
             sc = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            System.out.println(exception);
         }
 
         while (sc.hasNextLine())
             lines.add(new PersonLine(sc.nextLine()));
 
-        lines = validateLines(lines);
+        lines = transformLines(lines);
         sc.close();
 
         return lines;

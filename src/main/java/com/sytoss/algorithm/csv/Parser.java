@@ -4,9 +4,8 @@ import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.readers.FileContent;
 import com.sytoss.algorithm.csv.writer.CSVWriter;
 import com.sytoss.algorithm.csv.writer.IWriter;
-import com.sytoss.algorithm.csv.writer.JdomWriter;
-import com.sytoss.algorithm.csv.writer.SaxWriter;
-import org.xmlpull.v1.XmlPullParserException;
+import com.sytoss.algorithm.csv.writer.JDOMWriter;
+import com.sytoss.algorithm.csv.writer.SAXWriter;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,25 +13,24 @@ import java.util.List;
 
 public class Parser {
 
-    private IWriter saver;
+    private IWriter writer;
 
-    //JDOM | Sax
     public Parser(List<Line> lines, String filePath) throws IOException {
 
-        String fileType = filePath.substring(filePath.indexOf(".") + 1);
+        String fileType = filePath.substring(filePath.lastIndexOf(".") + 1);
 
         if(fileType.equals("csv")) {
 
-            saver = new CSVWriter(lines, filePath);
+            writer = new CSVWriter(lines, filePath);
 
         }
         else if(fileType.equals("xml")) {
 
             if(lines.size() < 20) {
-                saver = new JdomWriter(lines, filePath);
+                writer = new JDOMWriter(lines, filePath);
             }
             else {
-                saver = new SaxWriter(lines, filePath);
+                writer = new SAXWriter(lines, filePath);
             }
         }
 
@@ -54,6 +52,8 @@ public class Parser {
     }
 
     private static void help(Exception exp) {
-        System.out.println(exp.toString());
+        System.out.println("Wrong usage of the application:\n" + "\t" + exp.getMessage());
+        System.out.println("\t\nUse -java <source> <target> \n\t source - is input xml/csv file \n\t target - is output xml/csv file");
+        System.exit(-1);
     }
 }

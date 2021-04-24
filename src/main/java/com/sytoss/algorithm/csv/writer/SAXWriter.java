@@ -9,16 +9,16 @@ import java.io.*;
 import java.text.ParseException;
 import java.util.List;
 
-public class SaxWriter implements IWriter {
+public class SAXWriter implements IWriter {
 
-    public SaxWriter(List<Line> lines, String filePath) throws IOException {
+    public SAXWriter(List<Line> lines, String filePath) throws IOException {
         write (lines, filePath);
     }
 
     @Override
     public void write(List<Line> lines, String filePath) throws IOException {
 
-        //....
+
 
         OutputStream out = new FileOutputStream(filePath);
 
@@ -31,8 +31,8 @@ public class SaxWriter implements IWriter {
             writeListXml(lines, null, serializer);
             serializer.endDocument();
         }
-         catch (Exception ex) {
-            System.out.println("Could not generate public.xml file " + ex);
+        catch (Exception exception) {
+            System.out.println("Could not generate public.xml file:\n" + "\t" + exception);
         }
     }
 
@@ -56,39 +56,11 @@ public class SaxWriter implements IWriter {
             return;
         } else if (v instanceof Integer) {
             typeStr = "int";
-        } else if (v instanceof Long) {
-            typeStr = "long";
-        } else if (v instanceof Float) {
-            typeStr = "float";
-        } else if (v instanceof Double) {
-            typeStr = "double";
-        } else if (v instanceof Boolean) {
-            typeStr = "boolean";
-        /*} else if (v instanceof byte[]) {
-            writeByteArrayXml((byte[])v, name, out);
-            return;
-        } else if (v instanceof int[]) {
-            writeIntArrayXml((int[])v, name, out);
-            return;
-        } else if (v instanceof Map) {
-            writeMapXml((Map<?, ?>)v, name, out);
-            return;*/
         } else if (v instanceof List) {
             writeListXml((List<?>)v, name, out);
             return;
         } else if(v instanceof PersonLine) {
             writePersonLine((PersonLine) v, name, out);
-            return;
-        } else if (v instanceof CharSequence) {
-            // XXX This is to allow us to at least write something if
-            // we encounter styled text...  but it means we will drop all
-            // of the styling information. :(
-            out.startTag(null, "string");
-            if (name != null) {
-                out.attribute(null, "name", name);
-            }
-            out.text(v.toString());
-            out.endTag(null, "string");
             return;
         } else {
             throw new RuntimeException("writeValueXml: unable to write value " + v);
@@ -128,14 +100,13 @@ public class SaxWriter implements IWriter {
 
     public static void writePersonLine(PersonLine person, String name, XmlSerializer out) throws IOException, ParseException {
 
-        //when null
+
         if (person == null) {
             out.startTag(null, "null");
             out.endTag(null, "null");
             return;
         }
 
-        //start person tag
         out.text( "  ");
         out.startTag(null, "Person");
         if (name != null) {
@@ -143,7 +114,6 @@ public class SaxWriter implements IWriter {
         }
         out.attribute(null, "id", person.getNumber());
 
-        //name
         out.text("\n    ");
         out.startTag(null, "name");
         if (name != null) {
@@ -152,7 +122,6 @@ public class SaxWriter implements IWriter {
         out.text(person.getName());
         out.endTag(null, "name");
 
-        //surname
         out.text("    ");
         out.startTag(null, "surname");
         if (name != null) {
@@ -161,7 +130,6 @@ public class SaxWriter implements IWriter {
         out.text(person.getSurname());
         out.endTag(null, "surname");
 
-        //date
         out.text("    ");
         out.startTag(null, "date");
         if (name != null) {
@@ -170,7 +138,6 @@ public class SaxWriter implements IWriter {
         out.text(person.getBirthdayXML());
         out.endTag(null, "date");
 
-        //desc
         out.text("    ");
         out.startTag(null, "desc");
         if (name != null) {
@@ -179,11 +146,9 @@ public class SaxWriter implements IWriter {
         out.text(person.getNote());
         out.endTag(null, "desc");
 
-        //end person tag
         out.text("  ");
         out.endTag(null, "Person");
     }
 
 }
-
 

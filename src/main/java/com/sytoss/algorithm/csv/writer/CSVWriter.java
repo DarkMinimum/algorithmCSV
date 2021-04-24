@@ -18,24 +18,19 @@ public class CSVWriter implements IWriter {
 
         try {
 
-            //if I comment these two writers out the file is not cleared.
-
             BufferedWriter writer = new BufferedWriter(new FileWriter(csvPath, false));
 
-
-            //persons
             for (Line line : lines) {
 
                 PersonLine person = (PersonLine) line;
                 StringBuilder personString = new StringBuilder();
 
-                //persons cells
+
                 for (int j = 0; j < person.getCells().size(); j++) {
 
                     StringBuilder word = new StringBuilder(person.getCells().get(j));
                     StringBuilder tmpWord = new StringBuilder();
 
-                    //double \"
                     for (int k = 0; k < word.length(); k++) {
 
                         Character character = word.toString().toCharArray()[k];
@@ -48,7 +43,7 @@ public class CSVWriter implements IWriter {
                     }
 
                     boolean flag = false;
-                    //cells characters
+
                     for (int k = 0; k < tmpWord.length(); k++) {
 
                         if (!Character.isLetterOrDigit(tmpWord.toString().toCharArray()[k])) {

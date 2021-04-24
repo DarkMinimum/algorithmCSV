@@ -7,15 +7,16 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class IReader {
+public abstract class Reader {
 
     public abstract List<Line> read(String filePath) throws IOException, SAXException, ParserConfigurationException;
 
-    public List<Line> validateLines(List<Line> lines) {
+    public List<Line> transformLines(List<Line> lines) {
         for (Line line : lines) {
             line.transformToValid();
 
         }
+        
 
         return lines;
     }

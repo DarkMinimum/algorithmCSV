@@ -10,17 +10,17 @@ import org.jdom2.output.XMLOutputter;
 import java.io.FileOutputStream;
 import java.util.List;
 
-public class JdomWriter implements IWriter {
+public class JDOMWriter implements IWriter {
 
-    public JdomWriter(List<Line> lines, String xmlPath) {
+    public JDOMWriter(List<Line> lines, String xmlPath) {
         write(lines, xmlPath);
     }
 
     @Override
     public void write(List<Line> lines, String xmlPath) {
 
+        try {
 
-            try {
             Document doc = new Document();
             doc.setRootElement(new Element("Persons"));
 
@@ -41,8 +41,8 @@ public class JdomWriter implements IWriter {
             XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
             xmlOutputter.output(doc, new FileOutputStream(xmlPath));
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception exception) {
+                System.out.println("Some errors occurred while writing using JdomWriter:\n" + "\t" + exception);
             }
 
     }
