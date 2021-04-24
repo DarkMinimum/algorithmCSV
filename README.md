@@ -30,8 +30,7 @@ Update from 21.04.2021
 - Refactor some code.
 
 Update from 24.04.2021
-- Refactor once more.
+- Final refactor.
 
 
 Was created by DarkMinimum & Zody-hub.
-I was here))))
