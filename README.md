@@ -29,5 +29,8 @@ Update from 20/19.04.2021
 Update from 21.04.2021
 - Refactor some code.
 
+Update from 24.04.2021
+- Refactor once more.
 
-Was created by DarkMinimum & Zody.
+
+Was created by DarkMinimum & Zody-hub.
