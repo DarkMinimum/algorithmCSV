@@ -2,10 +2,11 @@ package com.sytoss.algorithm.csv;
 
 import com.sytoss.algorithm.csv.lines.Line;
 import com.sytoss.algorithm.csv.readers.FileContent;
-import com.sytoss.algorithm.csv.writer.CSVWriter;
-import com.sytoss.algorithm.csv.writer.IWriter;
-import com.sytoss.algorithm.csv.writer.JDOMWriter;
-import com.sytoss.algorithm.csv.writer.SAXWriter;
+import com.sytoss.algorithm.csv.writers.CSVWriter;
+import com.sytoss.algorithm.csv.writers.IWriter;
+import com.sytoss.algorithm.csv.writers.JDOMWriter;
+import com.sytoss.algorithm.csv.writers.SAXWriter;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +38,6 @@ public class Parser {
     }
 
     public static void main(String[] args) {
-
         try {
             if (args.length != 2) {
                 throw new IllegalArgumentException();

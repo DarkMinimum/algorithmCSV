@@ -1,4 +1,4 @@
-package com.sytoss.algorithm.csv.writer;
+package com.sytoss.algorithm.csv.writers;
 
 import org.xmlpull.v1.XmlSerializer;
 

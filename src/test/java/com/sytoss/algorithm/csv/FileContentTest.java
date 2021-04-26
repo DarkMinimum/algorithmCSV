@@ -5,7 +5,7 @@ import com.sytoss.algorithm.csv.lines.PersonLine;
 import com.sytoss.algorithm.csv.readers.CSVReader;
 import com.sytoss.algorithm.csv.readers.FileContent;
 import com.sytoss.algorithm.csv.readers.SaxReader;
-import com.sytoss.algorithm.csv.writer.SAXWriter;
+import com.sytoss.algorithm.csv.writers.SAXWriter;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -59,7 +59,7 @@ public class FileContentTest {
 
                 if(j == 3) {
 
-                    assertEquals(((PersonLine) linesOriginal.get(i)).getBirthdayXML(), linesFromSavedFile.get(i).getCells().get(j));
+                    assertEquals(((PersonLine) linesOriginal.get(i)).getCells().get(j), linesFromSavedFile.get(i).getCells().get(j));
                     continue;
                 }
 

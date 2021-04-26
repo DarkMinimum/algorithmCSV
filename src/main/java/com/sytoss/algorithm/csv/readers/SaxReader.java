@@ -32,16 +32,6 @@ public class SaxReader extends DefaultHandler {
     }
 
     @Override
-    public void startDocument() {
-
-    }
-
-    @Override
-    public void endDocument() {
-
-    }
-
-    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
 
         lastElementName = qName;
@@ -83,11 +73,6 @@ public class SaxReader extends DefaultHandler {
 
         }
 
-
-    }
-
-    @Override
-    public void ignorableWhitespace(char[] ch, int start, int length) {
 
     }
 
