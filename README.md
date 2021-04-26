@@ -1,7 +1,7 @@
 # algorithmCSV
 
 This program allows you to parse XML files to a CSV file format and vise versa. 
-It is based on the JDOM, Junit, XMLPullParser libraries.
+It is based on the `JDOM`, `Junit`, `XMLPullParser` libraries.
 
 # How to use it?
 
@@ -18,8 +18,8 @@ Fourth generation of parser from CSV/XML to CSV/XML via JDOM & XMLpullParser. 07
 
 Update from 08.04.2021
  - Added resources file.
- - New tests for FileContent class.
- - New tests for PersonLine & Line classes.
+ - New tests for `FileContent` class.
+ - New tests for `PersonLine` & `Line` classes.
 
 Update from 20/19.04.2021
 - Added implementation for `XMLpullParser API`.
@@ -29,5 +29,8 @@ Update from 20/19.04.2021
 Update from 21.04.2021
 - Refactor some code.
 
+Update from 24.04.2021
+- Final refactor.
 
-Was created by DarkMinimum & Zody.
+
+Was created by DarkMinimum & Zody-hub.
