@@ -12,9 +12,7 @@ import java.util.List;
 
 public class JDOMWriter implements IWriter {
 
-    public JDOMWriter(List<Line> lines, String xmlPath) {
-        write(lines, xmlPath);
-    }
+
 
     @Override
     public void write(List<Line> lines, String xmlPath) {
@@ -30,8 +28,13 @@ public class JDOMWriter implements IWriter {
 
                 Element person = new Element("Person");
                 person.setAttribute("id", l.getNumber());
-                person.addContent((new Element("name").setText(l.getName())));
-                person.addContent((new Element("surname").setText(l.getSurname())));
+
+                Element name = new Element("FullName");
+                name.addContent(new Element("name").setText(l.getName()));
+                name.addContent(new Element("surname").setText(l.getSurname()));
+                person.addContent(name);
+
+
                 person.addContent((new Element("date").setText(l.getBirthdayXML())));
                 person.addContent((new Element("desc").setText(l.getNote())));
                 doc.getRootElement().addContent(person);

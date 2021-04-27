@@ -49,9 +49,11 @@ public class JDOMReader {
 
             String date = generateDate(element.getChildText("date"));
 
+            List<Element> name = element.getChildren("FullName");
+
             String person = element.getAttributeValue("id") + "," +
-                    element.getChildText("name") + "," +
-                    element.getChildText("surname") + "," +
+                    name.get(0).getChildText("name") + "," +
+                    name.get(0).getChildText("surname") + "," +
                     date + "," +
                     element.getChildText("desc");
 

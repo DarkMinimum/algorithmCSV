@@ -6,6 +6,7 @@ import com.sytoss.algorithm.csv.writers.CSVWriter;
 import com.sytoss.algorithm.csv.writers.IWriter;
 import com.sytoss.algorithm.csv.writers.JDOMWriter;
 import com.sytoss.algorithm.csv.writers.SAXWriter;
+import org.xmlpull.v1.XmlPullParserException;
 
 
 import java.io.IOException;
@@ -15,26 +16,40 @@ import java.util.List;
 public class Parser {
 
     private IWriter writer;
+    private List<Line> lines;
+    private String filePath;
 
-    public Parser(List<Line> lines, String filePath) throws IOException {
+    public Parser(List<Line> lines, String filePath) {
 
         String fileType = filePath.substring(filePath.lastIndexOf(".") + 1);
+        this.lines = lines;
+        this.filePath = filePath;
 
         if(fileType.equals("csv")) {
 
-            writer = new CSVWriter(lines, filePath);
+            writer = new CSVWriter();
+
 
         }
         else if(fileType.equals("xml")) {
 
             if(lines.size() < 20) {
-                writer = new JDOMWriter(lines, filePath);
+                writer = new JDOMWriter();
+
             }
             else {
-                writer = new SAXWriter(lines, filePath);
+                writer = new SAXWriter();
+
             }
         }
+        else {
+            System.out.println("Parser can't use following type of file. . . \n\t ???");
+        }
 
+    }
+
+    public void write() throws IOException, XmlPullParserException {
+        writer.write(lines, filePath);
     }
 
     public static void main(String[] args) {

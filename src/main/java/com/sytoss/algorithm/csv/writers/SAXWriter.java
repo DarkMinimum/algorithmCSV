@@ -11,14 +11,8 @@ import java.util.List;
 
 public class SAXWriter implements IWriter {
 
-    public SAXWriter(List<Line> lines, String filePath) throws IOException {
-        write (lines, filePath);
-    }
-
     @Override
     public void write(List<Line> lines, String filePath) throws IOException {
-
-
 
         OutputStream out = new FileOutputStream(filePath);
 
@@ -109,12 +103,17 @@ public class SAXWriter implements IWriter {
 
         out.text( "  ");
         out.startTag(null, "Person");
+
         if (name != null) {
             out.attribute(null, "name", name);
         }
         out.attribute(null, "id", person.getNumber());
 
         out.text("\n    ");
+        ///
+        out.startTag(null, "FullName");
+        out.text("\n\t  ");
+
         out.startTag(null, "name");
         if (name != null) {
             out.attribute(null, "name", name);
@@ -122,13 +121,17 @@ public class SAXWriter implements IWriter {
         out.text(person.getName());
         out.endTag(null, "name");
 
-        out.text("    ");
+        out.text("      ");
         out.startTag(null, "surname");
         if (name != null) {
             out.attribute(null, "name", name);
         }
         out.text(person.getSurname());
         out.endTag(null, "surname");
+        out.text("\t");
+        out.endTag(null, "FullName");
+
+        ///
 
         out.text("    ");
         out.startTag(null, "date");

@@ -9,9 +9,6 @@ import java.util.List;
 
 public class CSVWriter implements IWriter {
 
-    public CSVWriter(List<Line> lines, String csvPath) {
-        write(lines, csvPath);
-    }
 
     @Override
     public void write(List<Line> lines, String csvPath) {

@@ -8,10 +8,10 @@ import com.sytoss.algorithm.csv.readers.SaxReader;
 import com.sytoss.algorithm.csv.writers.SAXWriter;
 import org.junit.Test;
 import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -40,17 +40,18 @@ public class FileContentTest {
     }
 
     @Test
-    public void fromCSVtoXMUsingJDOM() throws IOException, ParseException, SAXException, ParserConfigurationException {
+    public void fromCSVtoXMUsingJDOM() throws IOException, SAXException, ParserConfigurationException, XmlPullParserException {
 
         List<Line> linesOriginal = new FileContent().getLines(CSV_SOURCE);
         Parser parser = new Parser(linesOriginal, XML_OUTPUT);
+        parser.write();
 
         List<Line> linesFromSavedFile = new FileContent().getLines(XML_OUTPUT);
 
-        //persons count
+
         for (int i = 0; i < linesFromSavedFile.size(); i++) {
 
-            //getCells() separately
+
             for (int j = 0; j < linesFromSavedFile.get(i).getCells().size(); j++) {
 
                 String original = linesOriginal.get(i).getCells().get(j);
@@ -59,7 +60,7 @@ public class FileContentTest {
 
                 if(j == 3) {
 
-                    assertEquals(((PersonLine) linesOriginal.get(i)).getCells().get(j), linesFromSavedFile.get(i).getCells().get(j));
+                    assertEquals((linesOriginal.get(i)).getCells().get(j), linesFromSavedFile.get(i).getCells().get(j));
                     continue;
                 }
 
@@ -77,19 +78,20 @@ public class FileContentTest {
     }
 
     @Test
-    public void fromXMLtoCSV() throws IOException, SAXException, ParserConfigurationException {
+    public void fromXMLtoCSV() throws IOException, SAXException, ParserConfigurationException, XmlPullParserException {
 
 
-        List<Line> linesOriginal = new FileContent().getLines(XML_SOURCE);
+        List<Line> linesOriginal = new FileContent().getLines(XML_OUTPUT);
         Parser parser = new Parser(linesOriginal, CSV_OUTPUT);
+        parser.write();
         List<Line> linesFromSavedFile = new FileContent().getLines(CSV_OUTPUT);
 
         assertEquals(linesOriginal.size(), linesFromSavedFile.size());
 
-        //persons count
+
         for (int i = 0; i < linesFromSavedFile.size(); i++) {
 
-            //getCells() separately
+
             for (int j = 0; j < linesFromSavedFile.get(i).getCells().size(); j++) {
                 String original = linesOriginal.get(i).getCells().get(j);
                 String fromFile = linesFromSavedFile.get(i).getCells().get(j);
@@ -102,7 +104,8 @@ public class FileContentTest {
 
     @Test
     public void usingSaxWriter() throws IOException, SAXException, ParserConfigurationException {
-        SAXWriter saver = new SAXWriter(new FileContent().getLines(CSV_SOURCE), XML_SAX_OUTPUT);
+        SAXWriter saver = new SAXWriter();
+        saver.write(new FileContent().getLines(CSV_SOURCE), XML_SAX_OUTPUT);
     }
 
     @Test
