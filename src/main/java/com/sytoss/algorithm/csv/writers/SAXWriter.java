@@ -26,7 +26,7 @@ public class SAXWriter implements IWriter {
             serializer.endDocument();
         }
         catch (Exception exception) {
-            System.out.println("Could not generate public.xml file:\n" + "\t" + exception);
+            System.out.println("SAXWriter: Could not generate public.xml file:\n" + "\t" + exception);
         }
     }
 

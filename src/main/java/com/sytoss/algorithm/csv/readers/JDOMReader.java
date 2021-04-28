@@ -26,7 +26,7 @@ public class JDOMReader {
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            System.out.println("JDOMReader: can't read file: \n\t- " + e.getMessage());
         }
 
 

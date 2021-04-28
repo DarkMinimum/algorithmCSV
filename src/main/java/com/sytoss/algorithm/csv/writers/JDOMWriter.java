@@ -45,7 +45,7 @@ public class JDOMWriter implements IWriter {
             xmlOutputter.output(doc, new FileOutputStream(xmlPath));
 
             } catch (Exception exception) {
-                System.out.println("Some errors occurred while writing using JdomWriter:\n" + "\t" + exception);
+                System.out.println("JDOMWriter: Some errors occurred while writing using JdomWriter:\n" + "\t" + exception);
             }
 
     }

@@ -57,7 +57,8 @@ public class Parser {
             if (args.length != 2) {
                 throw new IllegalArgumentException();
             }
-            new Parser(new FileContent().getLines(args[0]), args[1]);
+            Parser parser = new Parser(new FileContent().getLines(args[0]), args[1]);
+            parser.write();
         }
         catch(Exception e){
             help(e);

@@ -65,7 +65,7 @@ public class CSVWriter implements IWriter {
             writer.close();
         }
         catch (Exception exception) {
-            exception.getStackTrace();
+            System.out.println("CSVWriter: Error while writing files: \n\t -" + exception.getMessage());
         }
     }
 }
